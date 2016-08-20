@@ -23,12 +23,7 @@ public class Customer {
             Rental each = rentals.nextElement();
             //Extract Method 提炼函数
             each.getCharge();
-            //add frequent renter points
-            frequentRenterPoints++;
-            //add bonus for a two day new release rental
-            if((each.getMovie().getPriceCode()==Movie.NEW_REALEASE)&&each.getDaysRented()>1){
-                frequentRenterPoints ++;
-            }
+            frequentRenterPoints += each.getFrequentRenterPoints();
             //show figures for this rental
             result += "\t" + each.getMovie().getTitle()+"\t"+String.valueOf(each.getCharge())+"\n";
             totalAmount += each.getCharge();

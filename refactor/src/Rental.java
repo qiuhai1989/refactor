@@ -50,4 +50,13 @@ public class Rental {
         }
         return result;
     }
+
+    public int getFrequentRenterPoints(){
+
+        if((getMovie().getPriceCode()==Movie.NEW_REALEASE)&&getDaysRented()>1){
+            return 2;
+        }else {
+            return 1;
+        }
+    }
 }
