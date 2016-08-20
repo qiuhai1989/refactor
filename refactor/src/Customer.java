@@ -22,23 +22,8 @@ public class Customer {
         while (rentals.hasMoreElements()){
             double thisAmount = 0;
             Rental each = rentals.nextElement();
-            switch (each.getMovie().getPriceCode()){
-                case Movie.REGULAR:
-                    thisAmount += 2;
-                    if(each.getDaysRented()>2){
-                        thisAmount += (each.getDaysRented()-2)*1.5;
-                    }
-                    break;
-                case Movie.NEW_REALEASE:
-                    thisAmount += each.getDaysRented()*3;
-                    break;
-                case Movie.CHILDRENS:
-                    thisAmount += 1.5;
-                    if(each.getDaysRented() > 3){
-                        thisAmount += (each.getDaysRented()-3)*1.5;
-                        break;
-                    }
-            }
+            //Extract Method 提炼函数
+            thisAmount = amountFor(each);
             //add frequent renter points
             frequentRenterPoints++;
             //add bonus for a two day new release rental
@@ -56,6 +41,27 @@ public class Customer {
         return result;
     }
 
+    private double amountFor(Rental aRental) {
+        double result = 0;
+        switch (aRental.getMovie().getPriceCode()){
+            case Movie.REGULAR:
+                result += 2;
+                if(aRental.getDaysRented()>2){
+                    result += (aRental.getDaysRented()-2)*1.5;
+                }
+                break;
+            case Movie.NEW_REALEASE:
+                result += aRental.getDaysRented()*3;
+                break;
+            case Movie.CHILDRENS:
+                result += 1.5;
+                if(aRental.getDaysRented() > 3){
+                    result += (aRental.getDaysRented()-3)*1.5;
+                    break;
+                }
+        }
+        return result;
+    }
 
 
     public Vector<Rental> getRentals() {
